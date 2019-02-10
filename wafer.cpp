@@ -10,7 +10,6 @@
  * (4) finally countGoodChips() goes through the wafer array and returns the number of good chips
  * Notes -
  * (1) all chips are referenced by the coordinate of the lower left corner of the chip
- *
 */
 
 #include <cmath>
@@ -21,19 +20,22 @@
 using namespace std;
 
 #define n 12
-#define chipSize 1.0
+
+double chipSize;
 
 bool wafer[n][n]; // true if chip i,j is good
 
-void initializeWafer(); // this function sets us the wafer prior to defects being applied
+void initializeWafer(double); // this function sets us the wafer prior to defects being applied
 bool checkCorners(double, double); // this function checks that all four corners of a chip are within wafer diameter
 void generateDefects(int); // this function takes the avg number of defects and returns a random number of defects
-int countGoodChips();
+int countGoodChips(); // this function returns the number of good chips in the wafer array
 
 // this function checks all four corners for each chip to ensure they are within wafer dimensions
 // if any chip corner falls outside, chip is marked false, else it is marked true
-void initializeWafer()
+void initializeWafer(double cs)
 {
+    chipSize = cs;
+
     for (int i = 0; i < n; ++i)
     {
         for (int j = 0; j < n; ++j)
@@ -41,7 +43,7 @@ void initializeWafer()
             wafer[i][j] = checkCorners(i, j);
         }
     }
-};
+}
 
 // this function conducts the corner checking
 // measures hypotenuse of triangle with endpoints origin and (i, j)
@@ -70,7 +72,7 @@ void generateDefects(int defects) {
     //create random number generator - first step need a seed
     unsigned seed = static_cast<unsigned int>(chrono::system_clock::now().time_since_epoch().count());
     //create random number generator with this seed
-    default_random_engine generator(seed);
+    mt19937 generator(seed);
     uniform_real_distribution<double> distribution(0.0, 12.0);
 
     //apply the defects to the chip, note a chip can receive multiple defects
@@ -97,5 +99,6 @@ int countGoodChips() {
             }
         }
     }
+
     return good;
 }

@@ -24,19 +24,60 @@ int main()
     cout << " based on a range of defects per silicon wafer. Press any key to begin the simulation" << endl;
     cin.get();
     // run the wafer simulations 30 times for each N(defects), from N = 10 to N = 100 in increments of 10
-    mcsFile << "Defects,Good Chips\n";
+    mcsFile << "Defects,Good Chips,Rate,Chip Size\n";
     for (int i = 10; i < 100; i = i + 10) // outer loop increments number of defects
     {
         int good = 0; // variable holds the number of good chips counted in all the runs for a given N
+        double rate = 0; // variable holds the percentage of good chips per wafer
         for (int j = 0; j < 30; ++j) // run 30 simulations per i
         {
-            initializeWafer();
+            initializeWafer(1.0); // for chip size 1.0 cm^2
             generateDefects(i);
             good += countGoodChips();
         }
-        // calculate average good chips for N and display result
-        cout << "For " << i << " average defects per wafer, there are " << good / 30 << " good chips." << endl;
-        mcsFile << i << "," << good / 30 << endl;
+        good = good / 30; // calculate the average good chips over the 30 runs
+        rate = good / 88.0; // calculate the percentage good chips per wafer
+        // display results
+        cout << "For " << i << " average defects per wafer, there are " << good << " good chips (";
+        cout << rate * 100 << "%), for chip size 1.0 cm^2." << endl;
+        mcsFile << i << "," << good << "," << rate << ",1.0" << endl;
+    }
+    // now run the simulation for chip size 1.5 cm^2
+    mcsFile << "Defects,Good Chips,Rate,Chip Size\n";
+    for (int i = 10; i < 100; i = i + 10) // outer loop increments number of defects
+    {
+        int good = 0; // variable holds the number of good chips counted in all the runs for a given N
+        double rate = 0; // variable holds the percentage of good chips per wafer
+        for (int j = 0; j < 30; ++j) // run 30 simulations per i
+        {
+            initializeWafer(1.5); // for chip size 1.5 cm^2
+            generateDefects(i);
+            good += countGoodChips();
+        }
+        good = good / 30; // calculate the average good chips over the 30 runs
+        rate = good / 32.0; // calculate the percentage good chips per wafer
+        // display results
+        cout << "For " << i << " average defects per wafer, there are " << good << " good chips (";
+        cout << rate * 100 << "%), for chip size 1.5 cm^2." << endl;
+        mcsFile << i << "," << good << "," << rate << ",1.5" << endl;
+    }
+    mcsFile << "Defects,Good Chips,Rate,Chip Size\n";
+    for (int i = 10; i < 100; i = i + 10) // outer loop increments number of defects
+    {
+        int good = 0; // variable holds the number of good chips counted in all the runs for a given N
+        double rate = 0; // variable holds the percentage of good chips per wafer
+        for (int j = 0; j < 30; ++j) // run 30 simulations per i
+        {
+            initializeWafer(2.0); // for chip size 2.0 cm^2
+            generateDefects(i);
+            good += countGoodChips();
+        }
+        good = good / 30; // calculate the average good chips over the 30 runs
+        rate = good / 16.0; // calculate the percentage good chips per wafer
+        // display results
+        cout << "For " << i << " average defects per wafer, there are " << good << " good chips (";
+        cout << rate * 100 << "%), for chip size 2.0 cm^2." << endl;
+        mcsFile << i << "," << good << "," << rate << ",2.0" << endl;
     }
     mcsFile.close();
 
