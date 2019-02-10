@@ -26,7 +26,7 @@ int main()
     // run the wafer simulations 30 times for each N(defects), from N = 10 to N = 100 in increments of 10
     mcsFile << "Defects,Good Chips,Rate,Chip Size\n";
     // run simulation for chip size 1.0 cm^2
-    for (int i = 10; i < 100; i = i + 10) // outer loop increments number of defects
+    for (int i = 10; i < 110; i = i + 10) // outer loop increments number of defects
     {
         int good = 0; // variable holds the number of good chips counted in all the runs for a given N
         double rate = 0; // variable holds the percentage of good chips per wafer
@@ -45,7 +45,7 @@ int main()
     }
     // now run the simulation for chip size 1.5 cm^2
     mcsFile << "Defects,Good Chips,Rate,Chip Size\n";
-    for (int i = 10; i < 100; i = i + 10) // outer loop increments number of defects
+    for (int i = 10; i < 110; i = i + 10) // outer loop increments number of defects
     {
         int good = 0; // variable holds the number of good chips counted in all the runs for a given N
         double rate = 0; // variable holds the percentage of good chips per wafer
@@ -64,7 +64,7 @@ int main()
     }
     // now run the simulation for chip size 2.0 cm^2
     mcsFile << "Defects,Good Chips,Rate,Chip Size\n";
-    for (int i = 10; i < 100; i = i + 10) // outer loop increments number of defects
+    for (int i = 10; i < 110; i = i + 10) // outer loop increments number of defects
     {
         int good = 0; // variable holds the number of good chips counted in all the runs for a given N
         double rate = 0; // variable holds the percentage of good chips per wafer
